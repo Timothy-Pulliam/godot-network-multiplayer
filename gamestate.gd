@@ -6,7 +6,7 @@ const DEFAULT_PORT = 10567
 # Max number of players.
 const MAX_PEERS = 12
 
-# Name for my player.
+# Name for my (local) player.
 var player_name = "The Warrior"
 
 # Names for remote players in id:name format.
@@ -87,27 +87,30 @@ remote func pre_start_game(spawn_points):
 
 	var player_scene = load("res://player.tscn")
 
-	for p_id in spawn_points:
-		var spawn_pos = world.get_node("SpawnPoints/" + str(spawn_points[p_id])).position
+	for peer_id in spawn_points:
+		# For Node2D
+		# var spawn_pos = world.get_node("SpawnPoints/" + str(spawn_points[spawn_point])).position
+		var spawn_pos = world.get_node("SpawnPoints/" + str(spawn_points[peer_id]))
 		var player = player_scene.instance()
-
-		player.set_name(str(p_id)) # Use unique ID as node name.
-		player.position=spawn_pos
-		player.set_network_master(p_id) #set unique id as master.
-
-		if p_id == get_tree().get_network_unique_id():
+		player.set_name(str(peer_id)) # Use unique ID as node name.
+		
+		# For Node2D objects
+		# player.position=spawn_pos
+		# For spatial nodes
+		player.set_translation(spawn_pos.get_translation())
+		player.set_network_master(peer_id) #set unique id as master.
+		if peer_id == get_tree().get_network_unique_id():
 			# If node for this peer id, set name.
 			player.set_player_name(player_name)
 		else:
 			# Otherwise set name from peer.
-			player.set_player_name(players[p_id])
-
+			player.set_player_name(players[peer_id])
 		world.get_node("Players").add_child(player)
 
 	# Set up score.
-	world.get_node("Score").add_player(get_tree().get_network_unique_id(), player_name)
-	for pn in players:
-		world.get_node("Score").add_player(pn, players[pn])
+#	world.get_node("Score").add_player(get_tree().get_network_unique_id(), player_name)
+#	for pn in players:
+#		world.get_node("Score").add_player(pn, players[pn])
 
 	if not get_tree().is_network_server():
 		# Tell server we are ready to start.
@@ -161,12 +164,12 @@ func begin_game():
 	var spawn_points = {}
 	spawn_points[1] = 0 # Server in spawn point 0.
 	var spawn_point_idx = 1
-	for p in players:
-		spawn_points[p] = spawn_point_idx
+	for player in players:
+		spawn_points[player] = spawn_point_idx
 		spawn_point_idx += 1
 	# Call to pre-start game with the spawn points.
-	for p in players:
-		rpc_id(p, "pre_start_game", spawn_points)
+	for player in players:
+		rpc_id(player, "pre_start_game", spawn_points)
 
 	pre_start_game(spawn_points)
 
@@ -178,3 +181,7 @@ func end_game():
 
 	emit_signal("game_ended")
 	players.clear()
+
+#func _process(_delta):
+#	if get_node_or_null("/root/World/Players/1"):
+#		print(get_node_or_null("/root/World/Players/1").get_translation())

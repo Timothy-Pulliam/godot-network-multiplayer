@@ -19,12 +19,12 @@ shape = SubResource( 1 )
 transform = Transform( 0.4, 0, 0, 0, 0.2, 0, 0, 0, 0.4, 0, 0.198279, 0 )
 shape = SubResource( 2 )
 
-[node name="CameraPivot" type="Spatial" parent="."]
+[node name="Pivot" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75549, 0 )
 
-[node name="Camera" type="Camera" parent="CameraPivot"]
+[node name="Camera" type="Camera" parent="Pivot"]
 
-[node name="Gun" type="MeshInstance" parent="CameraPivot"]
+[node name="Gun" type="MeshInstance" parent="Pivot"]
 transform = Transform( -7.99105, 0, -0.378246, 0, 8, 0, 0.378246, 0, -7.99105, 0.315409, -0.167368, -0.479912 )
 mesh = ExtResource( 2 )
 material/0 = null

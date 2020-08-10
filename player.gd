@@ -33,7 +33,7 @@ func get_input():
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	if event.is_action_pressed("lmb"):
+	if event.is_action_pressed("ui_lmb"):
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			get_tree().set_input_as_handled()
@@ -55,3 +55,6 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector3.UP, true)
 	if jump and is_on_floor():
 		velocity.y = jump_speed
+
+func set_player_name(player_name):
+	pass

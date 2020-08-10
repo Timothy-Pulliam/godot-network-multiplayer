@@ -2308,15 +2308,17 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 30 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 26 )
 
 [node name="SpawnPoints" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 0 )
 
 [node name="0" type="Position3D" parent="SpawnPoints"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.65, 4.1, 0 )
 
 [node name="1" type="Position3D" parent="SpawnPoints"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
 
 [node name="2" type="Position3D" parent="SpawnPoints"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 38.5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 38.5 )
 
 [node name="3" type="Position3D" parent="SpawnPoints"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0, 38.5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.25, 4, 38.5 )
+
+[node name="Players" type="Spatial" parent="."]
